@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Story Mode - Full Final Saga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+/* --- الإعدادات الأساسية --- */
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
+body { 
+    width: 100vw; height: 100vh; overflow: hidden; 
+    display: flex; justify-content: center; align-items: center; 
+    background-color: #000; font-family: 'Arial', sans-serif; 
+}
+
+#bgVideo { 
+    position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; 
+    z-index: -1; transform: translateX(-50%) translateY(-50%); 
+    filter: brightness(0.4); object-fit: cover; 
+}
+
+.viewport { 
+    position: fixed; inset: 0; display: flex; 
+    justify-content: center; align-items: center; z-index: 1; 
+}
+
+.wrapper { 
+    width: 720px; height: 1280px; transform-origin: center; 
+    position: relative; overflow-y: auto; overflow-x: hidden; 
+    scroll-behavior: smooth; 
+}
+.wrapper::-webkit-scrollbar { display: none; }
+
+/* زر العودة العلوي في الزاوية اليسرى */
+.top-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background: linear-gradient(180deg, #ffe5f0, #ffc1dc);
+    color: #4a002d;
+    border: 4px solid #ff6fb1;
+    font-family: 'Bangers', cursive;
+    font-size: 24px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+.top-back-btn:active { transform: scale(0.9); }
+
+/* ستايل العنوان العلوي */
+.main-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 80px; 
+}
+.header-top {
+    font-family: 'Bangers', cursive;
+    font-size: 50px;
+    color: #ff6fb1;
+    text-shadow: 4px 4px 0px #000;
+    letter-spacing: 2px;
+}
+.header-bottom {
+    font-family: 'Bangers', cursive;
+    font-size: 75px; 
+    color: #fff;
+    text-shadow: 6px 6px 0px #ff6fb1;
+    line-height: 0.9;
+}
+
+.comic-container { display: flex; flex-direction: column; width: 100%; align-items: center; padding-bottom: 600px; padding-top: 20px; }
+
+.panel-group { 
+    width: 100%; opacity: 0; transform: translateY(30px); 
+    transition: opacity 0.8s, transform 0.8s; 
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.panel-group.show { opacity: 1; transform: translateY(0); }
+.panel-img { width: 100%; height: auto; display: block; border: none; margin-bottom: 20px; }
+
+.dialog-box {
+    background: linear-gradient(180deg, #ffe5f0, #ffc1dc);
+    border-radius: 35px;
+    padding: 30px 40px; 
+    border: 6px solid #ff6fb1; 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7), inset 0 0 15px rgba(255, 255, 255, 0.8);
+    width: 90%;
+    max-width: 650px;
+    cursor: pointer;
+    animation: slideUpDialog 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: none;
+}
+
+.dialog-text {
+    font-family: 'Comic Neue', cursive;
+    font-size: 34px; 
+    color: #4a002d;
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 800;
+}
+
+.next-indicator {
+    text-align: center;
+    font-size: 18px;
+    color: #ff0066;
+    font-weight: bold;
+    margin-top: 15px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 3px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0.1; } }
+@keyframes slideUpDialog { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+</style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bgVideo">
+  <source src="https://www.dropbox.com/scl/fi/tro0qzlo79x0vshgec2k5/Background-video.mp4?rlkey=09ylr3zzzeedbmm19vbt73evd&st=g32i6cz4&dl=1" type="video/mp4">
+</video>
+
+<div class="viewport">
+  <div class="top-back-btn" onclick="window.history.back()">BACK</div>
+  
+  <div class="wrapper" id="mainWrapper">
+    <div class="comic-container" id="storyContent">
+        
+        <div class="main-header">
+            <div class="header-top">Fap from the past</div>
+            <div class="header-bottom">Comic</div>
+        </div>
+
+        <div class="panel-group" id="g1_0"><img src="https://i.ibb.co/8gpCK0jM/Dialogue-1-Part-1.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_1"><img src="https://i.ibb.co/przD30Z3/2.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_2"><img src="https://i.ibb.co/tT2KYYxG/Dialogue-1-Part-4.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_3"><img src="https://i.ibb.co/8DKXBt9j/Dialogue-1-Part-5.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_4"><img src="https://i.ibb.co/bRCBtXsH/5.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_5"><img src="https://i.ibb.co/VpvPM6qJ/6.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_6"><img src="https://i.ibb.co/Z16pFRsF/7.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g1_7"><img src="https://i.ibb.co/cS51qmy7/8.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g2_0"><img src="https://i.ibb.co/0pMyfTzS/9.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g2_1"><img src="https://i.ibb.co/LdpFb4gM/10.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g2_2"><img src="https://i.ibb.co/GQMrs8Bd/11.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g2_3"><img src="https://i.ibb.co/1t763BYc/Part4.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="g2_4"><img src="https://i.ibb.co/S4TQb08q/13.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+
+        <div class="panel-group" id="new_1"><img src="https://i.ibb.co/3m9Vhkwx/Pics-1.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_2"><img src="https://i.ibb.co/8nb8PB6B/Pics-2.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_3"><img src="https://i.ibb.co/j9ZhpTwb/Pics-3.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_4"><img src="https://i.ibb.co/SwdSstmg/Pics-4.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_5"><img src="https://i.ibb.co/RTTwVnfR/Pics-5.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_6"><img src="https://i.ibb.co/MkMmGQcd/Pics-6.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_7"><img src="https://i.ibb.co/3KSwkh4/Pics-7.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_8"><img src="https://i.ibb.co/N2gtbrRJ/Pics-8.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_9"><img src="https://i.ibb.co/TxXQ4L2B/Pics-9.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_10"><img src="https://i.ibb.co/7JFqXzW1/Pics-10.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_11"><img src="https://i.ibb.co/twqCY5cN/Pics-11.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_12"><img src="https://i.ibb.co/ZR8X5xyx/Pics-12.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_13"><img src="https://i.ibb.co/WWgVHw5n/Pics-13.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_14"><img src="https://i.ibb.co/LXvD69Zs/Pics-14.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_15"><img src="https://i.ibb.co/gL407bkG/Pics-15.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_16"><img src="https://i.ibb.co/QvPnt2T7/Pics-16.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_17"><img src="https://i.ibb.co/hJpssLBt/Pics-17.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_18"><img src="https://i.ibb.co/9LRhtgh/Pics-18.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_19"><img src="https://i.ibb.co/Z1pY3vjG/Pics-19.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_20"><img src="https://i.ibb.co/N6sLYqcB/Pics-20.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_21"><img src="https://i.ibb.co/5Qgqydm/Pics-21.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_22"><img src="https://i.ibb.co/DgSchRZd/Pics-22.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_23"><img src="https://i.ibb.co/GzP8N0j/Pics-23.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_24"><img src="https://i.ibb.co/SXBDCDDz/Pics-24.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_25"><img src="https://i.ibb.co/4ZJ98J2v/Pics-25.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_26"><img src="https://i.ibb.co/sdNRmtZs/Pics-26.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_27"><img src="https://i.ibb.co/8Lj38TQZ/Pics-27.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_28"><img src="https://i.ibb.co/zWqbHf38/Pics-28.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_29"><img src="https://i.ibb.co/PvpW37PQ/Pics-29.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_30"><img src="https://i.ibb.co/DHMZBSZm/Pics-30.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_31"><img src="https://i.ibb.co/QF5dTYyt/Pics-31.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_32"><img src="https://i.ibb.co/7M6wz28/Pics-32.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_33"><img src="https://i.ibb.co/whSdB0kY/Pics-33.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_34"><img src="https://i.ibb.co/VWxcQQwf/Pics-34.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_35"><img src="https://i.ibb.co/CKvLjDFw/Pics-35.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_36"><img src="https://i.ibb.co/fdsLDwsm/Pics-36.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+
+        <div class="panel-group" id="new_37"><img src="https://i.ibb.co/KpWjD9bJ/Pics-37.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_38"><img src="https://i.ibb.co/CK7DmCLP/Pics-38.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_39"><img src="https://i.ibb.co/b5CDvm1L/Pics-39.png" class="panel-img"><div class="dialog-box" onclick="handleStoryProgress(event)"><div class="dialog-text"></div><div class="next-indicator">TAP TO CONTINUE ▶</div></div></div>
+        <div class="panel-group" id="new_40">
+            <img src="https://i.ibb.co/j96ZxxZT/Pics-40.png" class="panel-img">
+            <div class="dialog-box" onclick="handleStoryProgress(event)">
+                <div class="dialog-text"></div>
+                <div class="next-indicator">THE END</div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let step = 0;
+let isTyping = false;
+const touchSound = new Audio("https://www.dropbox.com/scl/fi/wbhg5jqx3spvjxhxkozk9/Fap-geme-touch-effect-sonde.ogg?rlkey=ep18ldhl31olj2zx2anizoper&st=20ljm1li&dl=1");
+
+const storyData = [
+    { g: 'g1_0', t: "Fap from the past, the Story Start with..." },
+    { g: 'g1_1', t: "Xander (Husband)...when he's getting married and reluctantly packs away his old porno mags of his favorite starlet (Sheridan Love)" },
+    { g: 'g1_2', t: "Flash forward 5 years, and his wife is now demanding he get rid of his box of junk to clear some room in the house...." },
+    { g: 'g1_3', t: "He sadly agrees.." },
+    { g: 'g1_4', t: "and decides to reminisce one last time before throwing his magazines out...When he opens the box, he is shocked to see Sheridan love -alive and in the flesh!" },
+    { g: 'g1_5', t: "How is it possible!?" },
+    { g: 'g1_6', t: "Before he can figure it out.." },
+    { g: 'g1_7', t: "she's heading towards him, begging for his cock!" },
+    { g: 'g2_0', t: "Sheridan Love start suck husband cock..." },
+    { g: 'g2_1', t: "Suck..." },
+    { g: 'g2_2', t: "The wife checks on her husband and asks if he needs help..." },
+    { g: 'g2_3', t: "The husband refuses to help, the wife leaves, and Sheridan Love sits on the bed and exposes her pussy" },
+    { g: 'g2_4', t: "She want more from this cock.." },
+    { g: 'new_1', t: "Husband start fuck Sheridan..." },
+    { g: 'new_2', t: "  " }, { g: 'new_3', t: "  " }, { g: 'new_4', t: "  " }, { g: 'new_5', t: "  " }, { g: 'new_6', t: "  " },
+    { g: 'new_7', t: "  " }, { g: 'new_8', t: "  " }, { g: 'new_9', t: "  " }, { g: 'new_10', t: "  " }, { g: 'new_11', t: "  " },
+    { g: 'new_12', t: "  " }, { g: 'new_13', t: "  " }, { g: 'new_14', t: "  " }, { g: 'new_15', t: "  " }, { g: 'new_16', t: "  " },
+    { g: 'new_17', t: "  " }, { g: 'new_18', t: "  " }, { g: 'new_19', t: "  " }, { g: 'new_20', t: "  " }, { g: 'new_21', t: "  " },
+    { g: 'new_22', t: "  " }, { g: 'new_23', t: "  " }, { g: 'new_24', t: "  " }, { g: 'new_25', t: "  " }, { g: 'new_26', t: "  " },
+    { g: 'new_27', t: "  " }, { g: 'new_28', t: "  " }, { g: 'new_29', t: "  " }, { g: 'new_30', t: "  " }, { g: 'new_31', t: "  " },
+    { g: 'new_32', t: "  " }, { g: 'new_33', t: "  " }, { g: 'new_34', t: "  " }, { g: 'new_35', t: "  " }, { g: 'new_36', t: "  " },
+    { g: 'new_37', t: "Sheridan love your cum......" },
+    { g: 'new_38', t: "???" },
+    { g: 'new_39', t: "The wife is shocked by what her husband did..." },
+    { g: 'new_40', t: "  " }
+];
+
+function typeWriter(element, text) {
+    let i = 0;
+    element.innerHTML = "";
+    isTyping = true;
+    const interval = setInterval(() => {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(interval);
+            isTyping = false;
+        }
+    }, 35);
+}
+
+function handleStoryProgress(event) {
+    if (event) event.stopPropagation();
+    if (isTyping || step >= storyData.length) return;
+
+    touchSound.currentTime = 0;
+    touchSound.play().catch(e => {});
+
+    const current = storyData[step];
+    const group = document.getElementById(current.g);
+    const box = group.querySelector('.dialog-box');
+    const textEl = group.querySelector('.dialog-text');
+
+    group.classList.add('show');
+    box.style.display = 'block';
+
+    typeWriter(textEl, current.t);
+
+    setTimeout(() => { 
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+    }, 100);
+
+    step++;
+
+    if (step === storyData.length) {
+        box.onclick = null; 
+    }
+}
+
+window.addEventListener('load', () => {
+    resize();
+    handleStoryProgress();
+});
+
+function resize(){
+    const baseW=720, baseH=1280;
+    const scale=Math.min(window.innerWidth/baseW, window.innerHeight/baseH);
+    document.getElementById("mainWrapper").style.transform=`scale(${scale})`;
+}
+
+window.addEventListener("resize", resize);
+</script>
+</body>
+</html>
